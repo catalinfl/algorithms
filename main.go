@@ -1,43 +1,42 @@
 package main
 
-import (
-	"fmt"
-	"sort"
-)
+import "fmt"
 
 func main() {
-
-	var prices []int = []int{7, 1, 5, 3, 6, 4}
-	fmt.Println(maxProfit(prices))
+	fmt.Println(rob([]int{2, 3, 2}))
 
 }
 
-func maxProfit(prices []int) int {
-	l := len(prices)
+func rob(nums []int) int {
 
-	if l == 0 {
-		return 0
+	if len(nums) == 1 {
+		return nums[0]
 	}
 
-	b := make([]int, len(prices))
+	var rob func(int, []int, map[int]int) int
 
-	copy(b, prices)
+	rob = func(pos int, arr []int, memo map[int]int) int {
 
-	sort.Ints(b)
+		if v, ok := memo[pos]; ok {
+			return v
+		}
 
-	minPrice := b[0]
+		if pos >= len(arr) {
+			return 0
+		}
 
-	for i := 0; i < l; i++ {
-		b[i] = 0
-		fmt.Println(b[i])
+		a := rob(pos+1, arr, memo)
+		b := rob(pos+2, arr, memo) + arr[pos]
+		ans := max(a, b)
+		memo[pos] = ans
+		fmt.Println(ans)
+		return ans
 	}
 
-	for i := 0; i < l; i++ {
-		b[i] = prices[i] - minPrice
-	}
+	memo1 := make(map[int]int)
 
-	sort.Ints(b)
+	memo2 := make(map[int]int)
 
-	return b[len(b)-1]
+	return max(rob(1, nums, memo1), rob(0, nums[:len(nums)-1], memo2))
 
 }
