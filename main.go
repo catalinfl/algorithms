@@ -2,41 +2,53 @@ package main
 
 import "fmt"
 
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
 func main() {
 	fmt.Println(rob([]int{2, 3, 2}))
 
 }
 
-func rob(nums []int) int {
+func combinationSum(candidates []int, target int) [][]int {
+	result := make([][]int, 0)
 
-	if len(nums) == 1 {
-		return nums[0]
-	}
+	var backTracking func([]int, int)
 
-	var rob func(int, []int, map[int]int) int
+	backTracking = func(combination []int, nextIndex int) {
+		total := sum(combination...)
 
-	rob = func(pos int, arr []int, memo map[int]int) int {
+		if target <= total {
+			if target == total {
+				copyCombination := make([]int, len(combination))
+				copy(copyCombination, combination)
+				result = append(result, copyCombination)
+			}
 
-		if v, ok := memo[pos]; ok {
-			return v
+			return
 		}
 
-		if pos >= len(arr) {
-			return 0
+		for i := nextIndex; i < len(candidates); i++ {
+			backTracking(append(combination, candidates[i]), i)
 		}
 
-		a := rob(pos+1, arr, memo)
-		b := rob(pos+2, arr, memo) + arr[pos]
-		ans := max(a, b)
-		memo[pos] = ans
-		fmt.Println(ans)
-		return ans
 	}
 
-	memo1 := make(map[int]int)
+	backTracking(make([]int, 0), 0)
 
-	memo2 := make(map[int]int)
+	return result
 
-	return max(rob(1, nums, memo1), rob(0, nums[:len(nums)-1], memo2))
+}
 
+func sum(nums ...int) int {
+	var total int
+
+	for _, num := range nums {
+		total += num
+	}
+
+	return total
 }
