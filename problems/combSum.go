@@ -1,20 +1,6 @@
-package main
+package problems
 
-import "fmt"
-
-func main() {
-
-	candidates := []int{2, 3, 6, 7}
-	target := 7
-
-	result := combinationSum(candidates, target)
-
-	fmt.Println(result)
-
-}
-
-func combinationSum(candidates []int, target int) [][]int {
-
+func CombinationSum(candidates []int, target int) [][]int {
 	result := make([][]int, 0)
 
 	var backTracking func([]int, int)
