@@ -1,11 +1,13 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/catalinfl/algorithms/problems"
 )
 
 func main() {
 
-	problems.KidsWithCandies([]int{2, 6, 7}, 3)
+	fmt.Println(problems.KthDistinct([]string{"a", "b", "a"}, 3))
 
 }
