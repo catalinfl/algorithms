@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	problems.GreedyMinimumPushes("test")
+	problems.FindRelativeRanks([]int{1, 4, 7, 4})
 
 }
