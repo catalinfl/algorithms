@@ -1,10 +1,13 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/catalinfl/algorithms/problems"
 )
 
 func main() {
-	problems.FindRelativeRanks([]int{1, 4, 7, 4})
+
+	fmt.Println(problems.ConvertToTitle(701))
 
 }
